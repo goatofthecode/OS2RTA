@@ -1,0 +1,6 @@
+@OracleProcExecutor_HostAddress = http://localhost:5177
+
+GET {{OracleProcExecutor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

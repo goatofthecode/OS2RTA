@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>One Service 2 Rule Them All!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css"
+    />
+    <style>
+      :root {
+        --void: #060402;
+        --bg-dark: #0e0b06;
+        --bg-card: #171108;
+        --bg-panel: #1e170a;
+        --bg-input: #0b0803;
+        --gold: #d4af37;
+        --gold-bright: #f5d060;
+        --gold-warm: #e8c040;
+        --gold-dim: #8b7220;
+        --gold-muted: #4a3e10;
+        --amber: #c97b2a;
+        --shadow-gold: rgba(212, 175, 55, 0.25);
+        --mordor-red: #8b1a1a;
+        --text-parchment: #e8d5a3;
+        --text-gold: #d4af37;
+        --text-dim: #7a6530;
+        --border-faint: #2e2410;
+        --border-dim: #3a2e14;
+        --border-gold: #6b531e;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        background: var(--void) !important;
+        background-image:
+          radial-gradient(ellipse at 15% 0%, #1c1407 0%, transparent 55%),
+          radial-gradient(ellipse at 85% 100%, #100900 0%, transparent 50%);
+        background-attachment: fixed;
+        color: var(--text-parchment) !important;
+        font-family: "Cinzel", Georgia, serif !important;
+        min-height: 100vh;
+      }
+      #swagger-ui,
+      .swagger-ui,
+      .swagger-ui .wrapper {
+        background: transparent !important;
+      }
+
+      /* ── Topbar ── */
+      .swagger-ui .topbar {
+        background: linear-gradient(
+          160deg,
+          #0a0700 0%,
+          #1e1608 45%,
+          #100d05 100%
+        ) !important;
+        border-bottom: 1px solid var(--border-gold) !important;
+        box-shadow:
+          0 1px 0 rgba(245, 208, 96, 0.15),
+          0 4px 40px rgba(0, 0, 0, 0.9) !important;
+        padding: 14px 28px !important;
+        position: relative;
+      }
+      .swagger-ui .topbar::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--gold-dim) 15%,
+          var(--gold-bright) 40%,
+          var(--gold-warm) 50%,
+          var(--gold-bright) 60%,
+          var(--gold-dim) 85%,
+          transparent 100%
+        );
+        animation: goldline 6s ease-in-out infinite;
+        background-size: 200%;
+      }
+      @keyframes goldline {
+        0% {
+          background-position: 0%;
+        }
+        50% {
+          background-position: 100%;
+        }
+        100% {
+          background-position: 0%;
+        }
+      }
+      .swagger-ui .topbar-wrapper img {
+        display: none !important;
+      }
+      .swagger-ui .topbar-wrapper .link {
+        font-family: "Cinzel Decorative", "Cinzel", serif !important;
+        font-size: 1.55rem !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+        letter-spacing: 0.05em;
+      }
+      .swagger-ui .topbar-wrapper .link span {
+        background: linear-gradient(
+          115deg,
+          #c8a020 0%,
+          #f5d060 20%,
+          #d4af37 35%,
+          #ffe080 50%,
+          #d4af37 65%,
+          #f5d060 80%,
+          #c8a020 100%
+        );
+        background-size: 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 4s ease infinite;
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.7));
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* ── Info block ── */
+      .swagger-ui .information-container {
+        background: linear-gradient(
+          175deg,
+          #15100a 0%,
+          #0b0805 100%
+        ) !important;
+        border: 1px solid var(--border-gold) !important;
+        border-radius: 6px !important;
+        margin: 20px 0 !important;
+        padding: 28px 36px !important;
+        position: relative;
+        box-shadow:
+          inset 0 1px 0 rgba(212, 175, 55, 0.12),
+          0 6px 40px rgba(0, 0, 0, 0.7) !important;
+      }
+      .swagger-ui .information-container::before {
+        content: "⚔";
+        position: absolute;
+        top: 12px;
+        left: 16px;
+        color: var(--gold-dim);
+        font-size: 1.1rem;
+        opacity: 0.7;
+      }
+      .swagger-ui .info .title {
+        font-family: "Cinzel Decorative", "Cinzel", serif !important;
+        font-size: 2.4rem !important;
+        font-weight: 900 !important;
+        background: linear-gradient(
+          120deg,
+          #a07010 0%,
+          #f5d060 25%,
+          #d4af37 45%,
+          #fff4a0 55%,
+          #d4af37 70%,
+          #f0c030 85%,
+          #a07010 100%
+        ) !important;
+        background-size: 300% !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        animation: shimmer 5s ease infinite;
+        filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+        letter-spacing: 0.04em;
+        line-height: 1.25;
+      }
+      .swagger-ui .info .title::after {
+        display: block;
+        content: "── ✦ one query to bind them all ✦ ──";
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        font-weight: 400;
+        color: var(--gold-dim);
+        -webkit-text-fill-color: var(--gold-dim);
+        background: none;
+        filter: none;
+        letter-spacing: 0.2em;
+        margin-top: 6px;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+        animation: none;
+      }
+      .swagger-ui .info p,
+      .swagger-ui .info li {
+        color: var(--text-parchment) !important;
+        font-family: "Cinzel", Georgia, serif !important;
+        font-size: 0.875rem !important;
+        line-height: 1.75;
+      }
+      .swagger-ui .info .base-url {
+        color: var(--text-dim) !important;
+        font-size: 0.8rem !important;
+      }
+
+      /* ── Tags ── */
+      .swagger-ui .opblock-tag {
+        background: linear-gradient(135deg, #1a1408, #110e06) !important;
+        border: 1px solid var(--border-dim) !important;
+        border-left: 4px solid var(--gold) !important;
+        border-radius: 4px !important;
+        margin: 14px 0 4px !important;
+        transition: all 0.3s;
+      }
+      .swagger-ui .opblock-tag:hover {
+        border-left-color: var(--gold-bright) !important;
+        box-shadow: 0 0 20px var(--shadow-gold) !important;
+      }
+      .swagger-ui .opblock-tag a,
+      .swagger-ui .opblock-tag span {
+        font-family: "Cinzel", serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 600 !important;
+        color: var(--text-gold) !important;
+        text-shadow: 0 0 14px rgba(212, 175, 55, 0.45) !important;
+        letter-spacing: 0.07em !important;
+      }
+
+      /* ── Operation blocks ── */
+      .swagger-ui .opblock {
+        background: var(--bg-card) !important;
+        border: 1px solid var(--border-faint) !important;
+        border-radius: 4px !important;
+        margin: 5px 0 !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s !important;
+      }
+      .swagger-ui .opblock:hover {
+        border-color: var(--border-gold) !important;
+        box-shadow:
+          0 4px 24px var(--shadow-gold),
+          0 2px 10px rgba(0, 0, 0, 0.6) !important;
+      }
+      .swagger-ui .opblock.is-open {
+        border-color: var(--border-gold) !important;
+        box-shadow:
+          0 0 30px rgba(212, 175, 55, 0.1),
+          0 4px 20px rgba(0, 0, 0, 0.7) !important;
+      }
+      .swagger-ui .opblock-summary-method {
+        font-family: "Cinzel", serif !important;
+        font-weight: 600 !important;
+        font-size: 0.7rem !important;
+        letter-spacing: 0.12em !important;
+        border-radius: 3px !important;
+        min-width: 72px !important;
+        text-align: center !important;
+        padding: 6px 0 !important;
+      }
+      .swagger-ui .opblock.opblock-post {
+        border-left: 4px solid #b8860b !important;
+      }
+      .swagger-ui .opblock.opblock-post .opblock-summary-method {
+        background: linear-gradient(145deg, #3d2d00, #705200) !important;
+        color: var(--gold-bright) !important;
+      }
+      .swagger-ui .opblock.opblock-get {
+        border-left: 4px solid #b87333 !important;
+      }
+      .swagger-ui .opblock.opblock-get .opblock-summary-method {
+        background: linear-gradient(145deg, #3d1e00, #6a3600) !important;
+        color: #e8a060 !important;
+      }
+      .swagger-ui .opblock.opblock-put {
+        border-left: 4px solid #c97b2a !important;
+      }
+      .swagger-ui .opblock.opblock-put .opblock-summary-method {
+        background: linear-gradient(145deg, #3d2800, #6a4500) !important;
+        color: #e8b050 !important;
+      }
+      .swagger-ui .opblock.opblock-delete {
+        border-left: 4px solid #8b1a1a !important;
+      }
+      .swagger-ui .opblock.opblock-delete .opblock-summary-method {
+        background: linear-gradient(145deg, #3d0000, #6a0808) !important;
+        color: #ff7070 !important;
+      }
+      .swagger-ui .opblock-summary-path {
+        color: var(--text-parchment) !important;
+        font-family: "Cinzel", monospace !important;
+        font-size: 0.88rem !important;
+      }
+      .swagger-ui .opblock-summary-description {
+        color: var(--text-dim) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.8rem !important;
+        font-style: italic;
+      }
+      .swagger-ui .opblock-body {
+        background: var(--bg-panel) !important;
+      }
+      .swagger-ui .opblock-section-header {
+        background: linear-gradient(135deg, #181208, #0e0b06) !important;
+        border-bottom: 1px solid var(--border-faint) !important;
+      }
+      .swagger-ui .opblock-section-header h4,
+      .swagger-ui .opblock-section-header label {
+        color: var(--gold) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.1em !important;
+      }
+
+      /* ── Tables ── */
+      .swagger-ui table thead tr th {
+        background: linear-gradient(135deg, #1c1409, #100d06) !important;
+        color: var(--gold) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.76rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        border-bottom: 2px solid var(--border-gold) !important;
+        padding: 10px 14px !important;
+      }
+      .swagger-ui table tbody tr td {
+        background: transparent !important;
+        color: var(--text-parchment) !important;
+        border-bottom: 1px solid var(--border-faint) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.82rem !important;
+        padding: 10px 14px !important;
+      }
+      .swagger-ui table tbody tr:hover td {
+        background: rgba(212, 175, 55, 0.04) !important;
+      }
+      .swagger-ui .parameters-col_name {
+        color: var(--text-gold) !important;
+        font-weight: 600 !important;
+      }
+      .swagger-ui .parameter__type {
+        color: var(--amber) !important;
+        font-style: italic;
+        font-size: 0.78rem !important;
+      }
+
+      /* ── Inputs ── */
+      .swagger-ui input[type="text"],
+      .swagger-ui textarea,
+      .swagger-ui select {
+        background: var(--bg-input) !important;
+        border: 1px solid var(--border-dim) !important;
+        border-radius: 3px !important;
+        color: var(--text-parchment) !important;
+        font-family: "Cinzel", monospace !important;
+        font-size: 0.82rem !important;
+        padding: 8px 14px !important;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s !important;
+      }
+      .swagger-ui input[type="text"]:focus,
+      .swagger-ui textarea:focus,
+      .swagger-ui select:focus {
+        border-color: var(--gold-dim) !important;
+        box-shadow:
+          0 0 0 2px rgba(212, 175, 55, 0.18),
+          0 0 10px rgba(212, 175, 55, 0.6) !important;
+        outline: none !important;
+      }
+
+      /* ── Buttons ── */
+      .swagger-ui .btn {
+        font-family: "Cinzel", serif !important;
+        font-weight: 600 !important;
+        font-size: 0.76rem !important;
+        letter-spacing: 0.08em !important;
+        border-radius: 3px !important;
+        transition: all 0.25s !important;
+      }
+      .swagger-ui .btn.execute {
+        background: linear-gradient(
+          135deg,
+          #4a2e00,
+          #7a5000,
+          #4a2e00
+        ) !important;
+        background-size: 200% !important;
+        border: 1px solid var(--gold-dim) !important;
+        color: var(--gold-bright) !important;
+        padding: 8px 20px !important;
+        transition:
+          background-position 0.5s,
+          box-shadow 0.3s !important;
+      }
+      .swagger-ui .btn.execute:hover {
+        background-position: right !important;
+        box-shadow:
+          0 0 10px rgba(212, 175, 55, 0.6),
+          0 0 25px rgba(212, 175, 55, 0.3) !important;
+        border-color: var(--gold-warm) !important;
+      }
+      .swagger-ui .btn.try-out__btn {
+        background: linear-gradient(135deg, #1a1408, #28200e) !important;
+        border: 1px solid var(--border-gold) !important;
+        color: var(--gold) !important;
+      }
+      .swagger-ui .btn.try-out__btn:hover {
+        box-shadow: 0 0 14px var(--shadow-gold) !important;
+      }
+      .swagger-ui .btn.cancel {
+        background: linear-gradient(135deg, #280808, #400f0f) !important;
+        border: 1px solid var(--mordor-red) !important;
+        color: #ff8080 !important;
+      }
+
+      /* ── Code ── */
+      .swagger-ui pre,
+      .swagger-ui code,
+      .swagger-ui .microlight,
+      .swagger-ui .highlight-code {
+        background: #070503 !important;
+        border: 1px solid var(--border-dim) !important;
+        border-radius: 4px !important;
+        color: #c8b878 !important;
+        font-size: 0.82rem !important;
+      }
+
+      /* ── Models ── */
+      .swagger-ui .models {
+        border: 1px solid var(--border-dim) !important;
+        border-radius: 4px !important;
+        background: var(--bg-card) !important;
+      }
+      .swagger-ui .models h4 {
+        font-family: "Cinzel Decorative", "Cinzel", serif !important;
+        color: var(--gold) !important;
+        font-size: 0.95rem !important;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
+      }
+
+      /* ── Scheme container ── */
+      .swagger-ui .scheme-container {
+        background: linear-gradient(135deg, #100d07, #0a0703) !important;
+        border-bottom: 1px solid var(--border-faint) !important;
+        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.6) !important;
+      }
+      .swagger-ui .schemes > label {
+        color: var(--gold-dim) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.76rem !important;
+        letter-spacing: 0.1em !important;
+      }
+
+      /* ── Links ── */
+      .swagger-ui a {
+        color: var(--amber) !important;
+        transition:
+          color 0.2s,
+          text-shadow 0.2s;
+      }
+      .swagger-ui a:hover {
+        color: var(--gold-bright) !important;
+        text-shadow: 0 0 10px rgba(245, 208, 96, 0.5) !important;
+      }
+
+      /* ── Scrollbar ── */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #080503;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--gold-dim), var(--gold-muted));
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, var(--gold), var(--gold-dim));
+      }
+
+      /* ── Tabs ── */
+      .swagger-ui .tab li {
+        color: var(--text-dim) !important;
+        font-family: "Cinzel", serif !important;
+        font-size: 0.8rem !important;
+      }
+      .swagger-ui .tab li.active,
+      .swagger-ui .tab li:hover {
+        color: var(--gold) !important;
+        border-bottom-color: var(--gold) !important;
+      }
+
+      /* ── Response section ── */
+      .swagger-ui .responses-inner {
+        background: var(--bg-panel) !important;
+        padding: 14px !important;
+      }
+      .swagger-ui .response-col_status {
+        color: var(--gold) !important;
+        font-family: "Cinzel", serif !important;
+        font-weight: 600 !important;
+      }
+      .swagger-ui svg {
+        fill: var(--gold-dim) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui-standalone-preset.js"></script>
+    <script>
+      window.onload = function () {
+        // '../docs/v1' is relative to '/swagger/ui/index' → resolves to '/swagger/docs/v1'
+        SwaggerUIBundle({
+          url: "../docs/v1",
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          layout: "StandaloneLayout",
+        });
+      };
+    </script>
+  </body>
+</html>

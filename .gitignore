@@ -1,0 +1,22 @@
+# Build output
+bin/
+obj/
+
+# Published output folders
+Publish/
+Publish_FW/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
